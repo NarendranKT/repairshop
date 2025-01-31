@@ -5,7 +5,7 @@ import GoogleProvider from 'next-auth/providers/google';
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'credentials',
       credentials: {
         email: {
           label: 'Email',
@@ -17,8 +17,10 @@ const handler = NextAuth({
       async authorize(credentials) {
         const email = credentials?.email ?? '';
         const password = credentials?.password ?? '';
+        console.log('Credentails' + credentials);
+        console.log('---------------------------------------------------');
 
-        const res = await fetch('/api/login', {
+        const res = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -28,6 +30,8 @@ const handler = NextAuth({
         });
 
         const user = await res.json();
+        console.log('API result : ', user);
+        console.log('---------------------------------------------------');
         if (user) {
           return user;
         } else {
@@ -47,6 +51,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: '/login',
+  },
   callbacks: {
     // async signIn({ profile, account, email, credentials }) {
     //   if (account?.provider === 'google') {
@@ -65,10 +72,6 @@ const handler = NextAuth({
       return session;
     },
   },
-  // pages: {
-  //   signIn: '/auth/signin',
-  //   // signOut: '/auth/signout',
-  // },
 });
 
 export { handler as GET, handler as POST };

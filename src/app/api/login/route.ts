@@ -25,6 +25,9 @@ export const POST = async (req: Request) => {
       ...userWithoutPassword,
       accessToken,
     };
+    console.log('---------------------------------------------------');
+    console.log('API result : ', result);
+    console.log('---------------------------------------------------');
     return new Response(JSON.stringify(result));
   } else new Response(JSON.stringify(null));
 };
