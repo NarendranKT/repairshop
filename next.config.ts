@@ -79,6 +79,15 @@ const nextConfig: NextConfig = {
       };
     }
 
+    // Add alias for 'typeorm' to resolve to the right module
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        typeorm: require.resolve('typeorm'), // Ensures TypeORM resolves correctly
+      },
+    };
+
     return config;
   },
 

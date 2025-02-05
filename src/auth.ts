@@ -72,6 +72,9 @@ const handler = NextAuth({
       return session;
     },
   },
+  session: {
+    strategy: 'jwt', // Make sure you're using JWT sessions if not using a database
+  },
 });
 
 export { handler as GET, handler as POST };

@@ -3,6 +3,8 @@ import { DataSource } from 'typeorm';
 import { User } from './entity/User';
 import { Account } from './entity/Accounts';
 import { Session } from './entity/Sessions';
+import { Customer } from './entity/Customers';
+import { Ticket } from './entity/Tickets';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
@@ -13,7 +15,7 @@ const AppDataSource = new DataSource({
   database: process.env.DB_NAME || 'your_database',
   synchronize: true, // Set to false in production
   logging: true,
-  entities: [User, Account, Session],
+  entities: [User, Account, Session, Customer, Ticket],
   // migrations: ['src/migration/**/*.ts'],
   // subscribers: ['src/subscriber/**/*.ts'],
 });

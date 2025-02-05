@@ -16,13 +16,14 @@ export async function POST(req: Request) {
     const userRepo = AppDataSource.getRepository(User);
     const user = await userRepo.findOne({ where: { email: body.email } });
     if (user) {
-      throw new Error('User already registered');
+      return new Response('User already registered', { status: 400 });
     }
     const newUser = new User();
     newUser.name = body.name;
     newUser.email = body.email;
     newUser.password = await bcrypt.hash(body.password, 10);
     await userRepo.save(newUser);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...userWithoutPassword } = newUser;
     return new Response(JSON.stringify(userWithoutPassword));
   } catch (error) {
