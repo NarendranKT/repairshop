@@ -20,7 +20,7 @@ export class Ticket extends BaseEntity {
     lazy: true,
   })
   @JoinColumn({ name: 'customerId' }) // Maps this field to the customer table
-  customer!: Customer;
+  customer!: Promise<Customer>;
 
   @Column({ type: 'varchar', nullable: false })
   title!: string;
