@@ -16,6 +16,18 @@ export const getCustomer = async (id: string) => {
   //> });
 
   // $ Method 3
-  const customers = await Customer.findBy({ id });
+  const customers = await Customer.findOneBy({ id });
+  return customers;
+};
+
+export const getCustomers = async () => {
+  await initializeDatabase();
+  // $ Method 1
+  //> const customers = await Customer.query(
+  //>   `SELECT * FROM customers`
+  //> );
+
+  // $ Method 3
+  const customers = await Customer.find();
   return customers;
 };
